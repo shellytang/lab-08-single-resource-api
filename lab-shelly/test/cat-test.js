@@ -4,10 +4,10 @@ const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
 const expect = chai.expect;
-const Cat = require('../model/cat');
-const storage = require('../lib/storage');
-const debug = require('debug')('http:cat-test');
-const Router = require('../lib/router');
+// const Cat = require('../model/cat');
+// const storage = require('../lib/storage');
+// const debug = require('debug')('http:cat-test');
+// const Router = require('../lib/router');
 
 chai.use(http);
 
