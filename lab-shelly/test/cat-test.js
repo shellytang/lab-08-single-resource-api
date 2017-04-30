@@ -20,12 +20,12 @@ describe('Server module', function() {
 // ++++++++++++
   describe('GET method', function() {
 
-    describe('/endpoint', function() {
+    describe('/api/cat', function() {
       it('should respond with 400 on a bad request', done => {
         chai.request(server)
-        .get('/lala')
+        .get('/api/cat')
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res.status).to.equal(400);
           done();
         });
       });
