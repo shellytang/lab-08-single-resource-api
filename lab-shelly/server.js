@@ -7,7 +7,6 @@ const Cat = require('./model/cat');
 const debug = require('debug')('http:server');
 // const chai = require('chai').expect(); // eslint-line-disable
 
-
 const PORT = process.env.PORT || 3000;
 
 const router = new Router();
@@ -63,7 +62,7 @@ router.delete('/api/cat', function(req, res) {
     // console.log(req.url.query.id);
     storage.deleteItem('cat', req.url.query.id)
     .then(cat => {
-      res.writeHead(200, {'Content-Type': 'application/json'});
+      res.writeHead(204, {'Content-Type': 'application/json'});
       res.write(JSON.stringify(cat)); //should we include has been deleted?
       res.end();
     })
