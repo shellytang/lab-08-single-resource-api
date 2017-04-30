@@ -63,9 +63,8 @@ exports.updateItem = function(schema, id, name, mood) {
     let item = schemaName[id];
     if(!item) return reject(new Error('item not found'));
 //update name and mood
-    storage[schema][item.name] = name;
-    storage[schema][item.mood] = mood;
-
+    item.name = name;
+    item.mood = mood;
     return resolve(item);
   });
 };
