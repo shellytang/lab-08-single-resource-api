@@ -1,62 +1,53 @@
 ![cf](https://i.imgur.com/7v5ASc8.png) lab-08-single-resource-api
 =====
 
-# To Submit this Assignment
-  * fork this repository
-  * write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-duncan`
-  * push to your repository
-  * submit a pull request to this repository
-  * submit a link to your PR in canvas
-  * write a question and observation on canvas
+# Overview
+* An HTTP server was created using the node http module. It includes the following:
+  * An object constructor for creating a simple resource with three properties: an `id` property that is set to a unique **node-uuid**, name, and mood.
+  * Body parser for `POST` and `PUT` requests
+  * URL parser that uses nodes `url` and `querystring` modules
+  * Router Constructor that manages requests to `GET`, `POST`, `PUT`, and `DELETE` requests
+  * Routes for doing `CREATE`, `READ`, and `DELETE` operations
+  * Storage module that will store resources by their schema type and id
 
-# Build Tool Instructions
-* create a package.json that lists all dependencies and developer dependencies
-* include an .eslintrc
-* include a .gitignore
-* include a readme with project description
-* include any npm scripts for starting server, linting, testing, etc
-
-# Directions
-* Create these directories to organize your code:
- * lib
- * model
- * test
-* Create a HTTP Server using the http module
-* Create a Object Constructor that creates a _simple resource_ with at least 3 properties
- * An `id` property that is set to a unique **node-uuid** id is required
- * Also include two other properties of your choice (like name, creationDate, etc.)
-* Create a body parser to parse the json in the body of `POST` and `PUT` requests
-* Create a url parser that uses nodes `url` and `querystring` modules parse the request url
-* Create a Router Constructor that manages requests to `GET`, `POST`, `PUT`, and `DELETE` requests
-* Create a route for doing `CREATE`, `READ`, and `DELETE` operations on your _simple resource_
-* Create a storage module that will store resources by their type and id
+## Instructions
+  * Clone this repo and navigate to the lab-shelly directory
+  * Download the dependencies
+  * Run nodemon server in terminal
+  * Use server endpoints for requests
 
 ## Server Endpoints
-### `/api/simple-resource-name`
+### `/api/cat`
 * `POST` request
-  * pass data as stringifed json in the body of a post request to create a resource
+  * Create a resource by specifying the name and mood.
+  ```
+  HTTP POST :3000/api/cat name="milo" mood="hungry"
+  ```
 * `GET` request
-  * pass an `?id=<uuid>` in the query string to retrieve a specific resource as json
+  * Get a resource by passing an `?id=<uuid>` in the query string.
+  ```
+  HTTP GET :3000/api/cat?id=12345
+  ```
 * `DELETE` request
-  * pass an `?id=<uuid>` in the query string to delete a specific resource
-  * should return 204 status with no content in the body
+  * Delete a resource by passing in an `?id=<uuid>` in the query string. It should return 204 status with no content in the body
+  ```
+  HTTP DELETE :3000/api/cat?id=12345
+  ```
 * `PUT` request
-  * pass data as stringified json in the body of a put request to update a resource
-  * optionally decide whether the id of the resource is passed through the body or via the request url
+  * Update a resource by passing in a valid `?id=<uuid>` in the query string and specifying the new name and mood.
+  ```
+  HTTP PUT :3000/api/cat?id=12345 name="eva" mood="grumpy"
+  ```
 
 ## Tests
-* your tests should start your server when they begin and stop your server when they finish
-* write a test to ensure that your api returns a status code of 404 for routes that have not been registered
-* write tests to ensure your `/api/simple-resource-name` endpoint responds as described for each condition below:
+Tests were written to ensure that the `/api/cat` endpoint responds as described for each condition below::
+
+  * 404 response for routes that have not been registered
   * `GET` - test 404, responds with 'not found' for valid request made with an id that was not found
-  * `GET` - test 200, response body like `{<data>}` for a request made with a valid id
+  * `GET` - test 200, response body for a request made with a valid id
   * `POST` - test 400, responds with 'bad request' for if no `body provided` or `invalid body`
-  * `POST` - test 200, response body like  `{<data>}` for a post request with a valid body
+  * `POST` - test 200, response body for a post request with a valid body
   * `PUT` - test 400, responds with 'bad request' for if no `body provided` or `invalid body`
-  * `PUT` - test 204, response body like  `{<data>}` for a put request with a valid  id
+  * `PUT` - test 204, response body for a put request with a valid  id
   * `DELETE` - test 404, responds with 'not found' for valid request made with an id that was not found
   * `DELETE` - test 202, response for a delete request with a valid id
-
-
-## Bonus
-* **2pts** a `GET` request to `/api/simple-resource-name` with no **?id=** should return an array of all of the ids for that resource
